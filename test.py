@@ -6,7 +6,7 @@ manim -pql test.py Factoring
 class Factoring(Scene):
     def construct(self):
         # self.play_example_1()
-        self.play_example_2()
+        self.play_example_1()
 
     def play_example_2(self):
 
@@ -301,49 +301,15 @@ class Factoring(Scene):
                            "2y",
                            ")").next_to(equal, RIGHT)
 
-        to_move_coordinate = new_text[0].get_center()
-        to_move_coordinate[0] += 0.25
-        to_move_coordinate[1] += 0.25
-        self.play(text24[0].animate.set_color(YELLOW), run_time=0.1)
-        self.play(text16[0].animate.set_color(YELLOW), run_time=0.1)
-        arrow1 = CurvedArrow(text24[0].get_center(),
-                             to_move_coordinate).set_color(YELLOW)
-        arrow2 = CurvedArrow(text16[0].get_center(),
-                             to_move_coordinate).set_color(YELLOW)
-
-        print("ALPHA:", new_text.get_center())
-
-        # self.play(FadeIn(arrow1, arrow2))
-        # self.wait(0.25)
-        # self.play(Write(new_text[0]))
-        # self.wait(0.5)
-        # self.play(FadeOut(arrow1, arrow2))
 
 
 
-        self.play(Indicate(text24[0]), Indicate(text16[0]))
-
-        self.add(text24_left[0])
-        self.add(text16_left[0])
-
-        self.play(MoveAlongPath(text24[0], arrow1),
-                  MoveAlongPath(text16[0], arrow2),
-                  run_time = 1.5)
-
-
-
-        self.remove(text24[0])
-        self.remove(text16[0])
-
-        self.add(new_text[0])
-
-        self.wait(0.25)
-
-
-        self.play(FadeToColor(text16_left[0], color = GRAY),
-                  FadeToColor(text24_left[0], color = GRAY),
-                  run_time = 1)
-
+        self.move_multiple_in_arc(
+            mobject_list = [text16[0], text24[0]],
+            end_point_list=[new_text[0].get_center(), new_text[0].get_center()],
+            right_side_list=[new_text[0], new_text[0]],
+            left_side_list=[text16_left[0], text24_left[0]]
+        )
         self.wait(2)
 
         self.play(
