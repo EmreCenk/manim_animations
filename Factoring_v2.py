@@ -193,13 +193,16 @@ class Factoring(Scene):
             fade_animations.append(FadeToColor(left_side_list[i], color = GRAY))
 
         self.play(*animations, run_time = 1.5)
-        self.wait(0.65)
-        self.play(*fade_animations, run_time = 1)
+
         for m in right_side_list:
             self.add(m)
 
         for m in mobject_list:
             self.remove(m)
+
+        self.wait(0.65)
+        self.play(*fade_animations, run_time = 1)
+
 
         self.wait(1)
 
@@ -231,19 +234,18 @@ class Factoring(Scene):
         # factoring numbers
         line1 = Line([-4.2, 2.5, 0], [-4.7, 2, 0])
         text24 = MathTex("2", "\cdot", "2", "\cdot", "2", "\cdot", "3")
-        text24.shift(5 * LEFT + 1.5 * UP)
+        text24.shift(5.5 * LEFT + 1.5 * UP)
 
         line2 = Line([-2.8, 2.5, 0], [-2.3, 2, 0])
-        text16 = MathTex("8", "\cdot", "2")
-        text16.shift(2.2 * LEFT + 1.5 * UP)
+        text16 = MathTex("2","\cdot", "2","\cdot", "2", "\cdot", "2").next_to(text24).shift(RIGHT*1.8)
 
 
         # Making copies of the left side of the equation:
-        text16_left = MathTex("8", "\cdot", "2")
-        text16_left.shift(2.2 * LEFT + 1.5 * UP)
+        text16_left = MathTex("2","\cdot", "2","\cdot", "2", "\cdot", "2").next_to(text24).shift(RIGHT*1.8)
+        # text16_left.shift(2.2 * LEFT + 1.5 * UP)
 
-        text24_left = MathTex("8", "\cdot", "3")
-        text24_left.shift(5 * LEFT + 1.5 * UP)
+        text24_left = MathTex("2", "\cdot", "2", "\cdot", "2", "\cdot", "3")
+        text24_left.shift(5.5 * LEFT + 1.5 * UP)
 
 
 
@@ -253,7 +255,7 @@ class Factoring(Scene):
 
         self.add(line1)
         self.wait(0.25)
-        self.play(Write(text24))
+        self.play(Write(text24), run_time = 1.25)
         self.wait(0.25)
 
         # highlight the coefficients (16)
@@ -261,11 +263,11 @@ class Factoring(Scene):
 
         self.add(line2)
         self.wait(0.25)
-        self.play(Write(text16))
+        self.play(Write(text16), run_time = 1.25)
         self.wait(1)
 
         # factoring variables
-        text_x6 = MathTex("x^{4}", "x^{2}").next_to(text24, RIGHT)
+        text_x6 = MathTex("x^{4}", "x^{2}").next_to(text24, RIGHT).shift(UP*0.06)
         text_x2 = MathTex("x^{2}", "y").next_to(text16, RIGHT)
 
         #Making copies for the left side of the equation:
@@ -274,7 +276,7 @@ class Factoring(Scene):
 
 
         # plus
-        plus = MathTex(" + ").next_to(text_x6, RIGHT)
+        plus = MathTex(" + ").next_to(text_x6, RIGHT).shift(DOWN*0.05)
 
         # highlight and factor variables
         self.play(Indicate(text[1]))
@@ -302,155 +304,162 @@ class Factoring(Scene):
                            ")").next_to(equal, RIGHT)
 
 
+        mlist = []
+        elist = []
+        llist = []
 
-
+        for i in range(3):
+            mlist.extend([text24[i], text16[i]])
+            elist.extend([new_text[0].get_center(), new_text[0].get_center()])
+            llist.extend([text24_left[i], text16_left[i]])
         self.move_multiple_in_arc(
-            mobject_list = [text16[0], text24[0]],
-            end_point_list=[new_text[0].get_center(), new_text[0].get_center()],
-            right_side_list=[new_text[0], new_text[0]],
-            left_side_list=[text16_left[0], text24_left[0]]
+            mobject_list = mlist,
+            end_point_list=elist,
+            right_side_list=[new_text[0]],
+            left_side_list=llist,
+            indicate_color=BLUE
         )
-        self.wait(2)
-
-        self.play(
-            Indicate(text_x6[1], color = PINK),
-            Indicate(text_x2[0], color = PINK)
-        )
-        text_x6[1].set_fill(PINK)
-        text_x2[0].set_fill(PINK)
-
-        new_text_1_coordinates = self.proper_center(new_text[1], -0.06, 0.35)
-
-        arrow3 = CurvedArrow(text_x6[1].get_center(), new_text_1_coordinates, angle = TAU/2)
-        arrow4 = CurvedArrow(text_x2[0].get_center(), new_text_1_coordinates, angle = TAU/2)
-
-        self.add(text_x2_left[0])
-        self.add(text_x6_left[1])
-        self.play(MoveAlongPath(text_x6[1], arrow3),
-                  MoveAlongPath(text_x2[0], arrow4),
-                  run_time = 2)
-
-        self.add(new_text[1])
-        self.remove(text_x6[1])
-        self.remove(text_x2[0])
-        self.wait(0.05)
-
-        self.play(FadeToColor(text_x6_left[1], color = GRAY),
-                  FadeToColor(text_x2_left[0], color = GRAY),
-                  run_time = 1)
-
-        # text_x2_left[0].set_fill(GRAY)
-        # text_x6_left[1].set_fill(GRAY)
-        self.wait(1)
-
-
-        # bracket
-        self.play(Write(new_text[2]))
-        self.wait(0.25)
+        # self.wait(2)
         #
-        # remaining terms (part 1)
-        self.play(
-            Indicate(text24[2], color = BLUE),
-            Indicate(text_x6[0], color=BLUE),
-            run_time = 1.3
-        )
-
-        arrow5 = CurvedArrow(text24[2].get_center(),
-                             self.proper_center(new_text[3], -0.18, 0.12)).set_color(YELLOW)
-
-        arrow6 = CurvedArrow(text_x6[0].get_center(),
-                             self.proper_center(new_text[3], 0.28, 0.23)).set_color(YELLOW)
-
-
-
-        self.wait(0.25)
-
-        self.add(text24_left[2])
-        self.add(text_x6_left[0])
-
-        self.play(
-            MoveAlongPath(
-                text24[2], arrow5
-            ),
-            MoveAlongPath(
-                text_x6[0], arrow6
-            ),
-            run_time = 2.5
-        )
-        self.add(new_text[3])
-        self.remove(text24[2])
-        self.remove(text_x6[0])
-
-
-        self.play(FadeToColor(text24_left[2], GRAY),
-                  FadeToColor(text_x6_left, GRAY))
-        # self.play(Write(new_text[3]))
-
-        # plus
-        self.play(Write(new_text[4]))
-
-        # remaining terms (part 2)
-
-        self.play(
-            Indicate(text16[2], color = BLUE),
-            Indicate(text_x2[1], color = BLUE)
-        )
-
-        # underline3 = Underline(mobject=text16[2], buff=0.2).set_color(BLUE)
-        # self.play(Create(underline3), run_time=0.6)
+        # self.play(
+        #     Indicate(text_x6[1], color = PINK),
+        #     Indicate(text_x2[0], color = PINK)
+        # )
+        # text_x6[1].set_fill(PINK)
+        # text_x2[0].set_fill(PINK)
         #
-        # underline4 = Underline(mobject=text_x2[1], buff=0.2).set_color(BLUE)
-        # self.play(Create(underline4), run_time=0.6)
-
-        self.wait(0.25)
-
-        self.add(text16_left[2])
-        self.add(text_x2_left[1])
-
-        to_move = self.move_in_arc(text16[2], self.proper_center(new_text[5], 0.15, 0.26))
-        to_move2 = self.move_in_arc(text_x2[1], self.proper_center(new_text[5], 0.39, 0.28))
-
-        self.play(to_move,
-                  to_move2,
-                  run_time = 2)
-        self.remove(text16[2])
-        self.remove(text_x2[1])
-
-        self.add(new_text[5])
-
-        self.play(
-            FadeToColor(text16_left[2], color = GRAY),
-            FadeToColor(text_x2_left[1], color = GRAY)
-        )
-        self.wait(0.25)
-
-        # bracket
-        self.play(Write(new_text[6]))
-
-        self.play(FadeToColor(new_text, YELLOW),
-                  run_time = 1)
-
-        to_fade = [text, text24[1], text16[1],
-                          text_x2_left,
-                          text24_left,
-                          text16_left,
-                          text_x6_left,
-                          line1, line2,
-                          plus, equal,
-                          new_text]
-
-        fade_animations = []
-        for mobject in to_fade:
-            fade_animations.append(
-                FadeToColor(mobject, BLACK)
-            )
-
-        self.play(*fade_animations)
-
-        for mobject in to_fade:
-            self.remove(mobject)
-
-        self.wait(3)
+        # new_text_1_coordinates = self.proper_center(new_text[1], -0.06, 0.35)
+        #
+        # arrow3 = CurvedArrow(text_x6[1].get_center(), new_text_1_coordinates, angle = TAU/2)
+        # arrow4 = CurvedArrow(text_x2[0].get_center(), new_text_1_coordinates, angle = TAU/2)
+        #
+        # self.add(text_x2_left[0])
+        # self.add(text_x6_left[1])
+        # self.play(MoveAlongPath(text_x6[1], arrow3),
+        #           MoveAlongPath(text_x2[0], arrow4),
+        #           run_time = 2)
+        #
+        # self.add(new_text[1])
+        # self.remove(text_x6[1])
+        # self.remove(text_x2[0])
+        # self.wait(0.05)
+        #
+        # self.play(FadeToColor(text_x6_left[1], color = GRAY),
+        #           FadeToColor(text_x2_left[0], color = GRAY),
+        #           run_time = 1)
+        #
+        # # text_x2_left[0].set_fill(GRAY)
+        # # text_x6_left[1].set_fill(GRAY)
+        # self.wait(1)
+        #
+        #
+        # # bracket
+        # self.play(Write(new_text[2]))
+        # self.wait(0.25)
+        # #
+        # # remaining terms (part 1)
+        # self.play(
+        #     Indicate(text24[2], color = BLUE),
+        #     Indicate(text_x6[0], color=BLUE),
+        #     run_time = 1.3
+        # )
+        #
+        # arrow5 = CurvedArrow(text24[2].get_center(),
+        #                      self.proper_center(new_text[3], -0.18, 0.12)).set_color(YELLOW)
+        #
+        # arrow6 = CurvedArrow(text_x6[0].get_center(),
+        #                      self.proper_center(new_text[3], 0.28, 0.23)).set_color(YELLOW)
+        #
+        #
+        #
+        # self.wait(0.25)
+        #
+        # self.add(text24_left[2])
+        # self.add(text_x6_left[0])
+        #
+        # self.play(
+        #     MoveAlongPath(
+        #         text24[2], arrow5
+        #     ),
+        #     MoveAlongPath(
+        #         text_x6[0], arrow6
+        #     ),
+        #     run_time = 2.5
+        # )
+        # self.add(new_text[3])
+        # self.remove(text24[2])
+        # self.remove(text_x6[0])
+        #
+        #
+        # self.play(FadeToColor(text24_left[2], GRAY),
+        #           FadeToColor(text_x6_left, GRAY))
+        # # self.play(Write(new_text[3]))
+        #
+        # # plus
+        # self.play(Write(new_text[4]))
+        #
+        # # remaining terms (part 2)
+        #
+        # self.play(
+        #     Indicate(text16[2], color = BLUE),
+        #     Indicate(text_x2[1], color = BLUE)
+        # )
+        #
+        # # underline3 = Underline(mobject=text16[2], buff=0.2).set_color(BLUE)
+        # # self.play(Create(underline3), run_time=0.6)
+        # #
+        # # underline4 = Underline(mobject=text_x2[1], buff=0.2).set_color(BLUE)
+        # # self.play(Create(underline4), run_time=0.6)
+        #
+        # self.wait(0.25)
+        #
+        # self.add(text16_left[2])
+        # self.add(text_x2_left[1])
+        #
+        # to_move = self.move_in_arc(text16[2], self.proper_center(new_text[5], 0.15, 0.26))
+        # to_move2 = self.move_in_arc(text_x2[1], self.proper_center(new_text[5], 0.39, 0.28))
+        #
+        # self.play(to_move,
+        #           to_move2,
+        #           run_time = 2)
+        # self.remove(text16[2])
+        # self.remove(text_x2[1])
+        #
+        # self.add(new_text[5])
+        #
+        # self.play(
+        #     FadeToColor(text16_left[2], color = GRAY),
+        #     FadeToColor(text_x2_left[1], color = GRAY)
+        # )
+        # self.wait(0.25)
+        #
+        # # bracket
+        # self.play(Write(new_text[6]))
+        #
+        # self.play(FadeToColor(new_text, YELLOW),
+        #           run_time = 1)
+        #
+        # to_fade = [text, text24[1], text16[1],
+        #                   text_x2_left,
+        #                   text24_left,
+        #                   text16_left,
+        #                   text_x6_left,
+        #                   line1, line2,
+        #                   plus, equal,
+        #                   new_text]
+        #
+        # fade_animations = []
+        # for mobject in to_fade:
+        #     fade_animations.append(
+        #         FadeToColor(mobject, BLACK)
+        #     )
+        #
+        # self.play(*fade_animations)
+        #
+        # for mobject in to_fade:
+        #     self.remove(mobject)
+        #
+        # self.wait(3)
     def move_in_arc(self, mobject, final_coordiantes,):
         arrow = ArcBetweenPoints(mobject.get_center(), final_coordiantes)
         return MoveAlongPath(mobject, arrow)
