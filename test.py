@@ -129,7 +129,7 @@ class Factoring(Scene):
         self.play(Write(equal2))
         self.wait(0.5)
 
-        # factorizing (x^2 - 1)
+        # factoring (x^2 - 1)
         self.play(new_expression[2].animate.set_color(PINK), run_time=0.05)
         self.play(new_expression[3].animate.set_color(PINK), run_time=0.05)
         self.play(new_expression[4].animate.set_color(PINK), run_time=0.05)
@@ -142,11 +142,31 @@ class Factoring(Scene):
         self.wait(0.5)
 
         # factoring
-        final_expression = MathTex("5", "(y + 2)", "(x + 1)(x - 1)").next_to(equal2, RIGHT)
+        expression_before_last = MathTex("5", "(y + 2)", "(x^{2} - 1^{2})").next_to(equal2, RIGHT)
+        self.play(Write(expression_before_last))
+        # underline2 = Underline(mobject=expression_before_last[2], buff=0.2).set_color(PINK)
+        expression_before_last[2].set_color(PINK)
+        # self.play(Create(underline2), run_time=0.6)
+        self.wait(0.5)
+
+
+        arrow6 = Arrow(stroke_width=arrow5.get_stroke_width(),
+                       tip_length=arrow5.get_default_tip_length()).next_to(arrow5, DOWN).set_color(PINK).rotate(-PI/2)
+        arrow6.shift(1 * DOWN)
+        arrow6.height = 0.8
+
+
+        equal3 = MathTex(" = ").next_to(equal2, DOWN * 6)
+        final_expression = MathTex("5", "(y + 2)", "(x + 1)(x - 1)").next_to(equal3, RIGHT)
+        underline2 = Underline(mobject=final_expression, buff=0.2).set_color(PINK)
+
+        self.play(Write(equal3))
+        self.wait(0.2)
+        self.play(FadeIn(arrow6), run_time = 0.6)
+        self.wait(0.5)
         self.play(Write(final_expression))
-        underline2 = Underline(mobject=final_expression[2], buff=0.2).set_color(PINK)
-        self.play(Create(underline2), run_time=0.6)
-        self.wait()
+        self.wait(0.75)
+        self.play(Create(underline2), run_time = 0.6)
 
     def move_multiple_in_arc(self, mobject_list, left_side_list, right_side_list, end_point_list,
                              indicate_color = YELLOW,  indicate = True):
