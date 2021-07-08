@@ -142,7 +142,7 @@ class Factoring(Scene):
                 indicate_animations.append(
                     Indicate(m)
                 )
-            self.play((indicate_animations))
+            self.play(*indicate_animations)
         animations = []
 
         for i in range(len(mobject_list)):
