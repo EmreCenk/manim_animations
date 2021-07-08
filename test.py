@@ -64,10 +64,7 @@ class Factoring(Scene):
         # self.wait(0.5)
 
         # Highlighting 5:
-        self.play(
-            Indicate(expression[0]),
-            Indicate(expression[4])
-        )
+
         # Carrying the 5:
         self.move_multiple_in_arc(
             mobject_list = [expression[0], expression[4]],
@@ -78,16 +75,17 @@ class Factoring(Scene):
 
 
         ## (y + 2)
-        arrow3 = CurvedArrow([-3.6, 1.5, 0], [1, 1.5, 0], angle=-TAU / 4).set_color(GREEN)
-        arrow4 = CurvedArrow([-1.2, 1.5, 0], [1, 1.5, 0], angle=-TAU / 4).set_color(GREEN)
-        self.play(expression[2].animate.set_color(GREEN), run_time=0.1)
-        self.play(expression[5].animate.set_color(GREEN), run_time=0.1)
-        self.wait(0.25)
-        self.play(FadeIn(arrow3, arrow4))
-        self.wait(0.25)
-        self.play(Write(new_expression[1]))
-        self.wait(0.5)
-        self.play(FadeOut(arrow3, arrow4))
+        # arrow3 = CurvedArrow([-3.6, 1.5, 0], [1, 1.5, 0], angle=-TAU / 4).set_color(GREEN)
+        # arrow4 = CurvedArrow([-1.2, 1.5, 0], [1, 1.5, 0], angle=-TAU / 4).set_color(GREEN)
+        # self.play(expression[2].animate.set_color(GREEN), run_time=0.1)
+        # self.play(expression[5].animate.set_color(GREEN), run_time=0.1)
+        # self.wait(0.25)
+        # self.play(FadeIn(arrow3, arrow4))
+        # self.wait(0.25)
+        # self.play(Write(new_expression[1]))
+        # self.wait(0.5)
+        # self.play(FadeOut(arrow3, arrow4))
+
 
         # # bracket
         # self.play(Write(new_expression[2]))
@@ -137,7 +135,14 @@ class Factoring(Scene):
         # self.play(Create(underline2), run_time=0.6)
         # self.wait()
 
-    def move_multiple_in_arc(self, mobject_list, left_side_list, right_side_list, end_point_list):
+    def move_multiple_in_arc(self, mobject_list, left_side_list, right_side_list, end_point_list, indicate = True):
+        if indicate:
+            indicate_animations = []
+            for m in mobject_list:
+                indicate_animations.append(
+                    Indicate(m)
+                )
+            self.play((indicate_animations))
         animations = []
 
         for i in range(len(mobject_list)):
@@ -438,7 +443,7 @@ class Factoring(Scene):
 
         self.wait(3)
     def move_in_arc(self, mobject, final_coordiantes,):
-        arrow = CurvedArrow(mobject.get_center(), final_coordiantes)
+        arrow = ArcBetweenPoints(mobject.get_center(), final_coordiantes)
         return MoveAlongPath(mobject, arrow)
 
     def proper_center(self, mobject, x = 0.25, y = 0.25):
