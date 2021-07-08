@@ -86,7 +86,13 @@ class Factoring(Scene):
         # self.wait(0.5)
         # self.play(FadeOut(arrow3, arrow4))
 
-
+        self.move_multiple_in_arc(
+            mobject_list = [expression[2], expression[5]],
+            end_point_list=[new_expression[1].get_center(), new_expression[1].get_center()],
+            right_side_list=[new_expression[1], new_expression[1]],
+            left_side_list=[expression_left[2], expression_left[5]],
+            indicate_color=GREEN
+        )
         # # bracket
         # self.play(Write(new_expression[2]))
         # self.wait(0.5)
@@ -135,14 +141,20 @@ class Factoring(Scene):
         # self.play(Create(underline2), run_time=0.6)
         # self.wait()
 
-    def move_multiple_in_arc(self, mobject_list, left_side_list, right_side_list, end_point_list, indicate = True):
+    def move_multiple_in_arc(self, mobject_list, left_side_list, right_side_list, end_point_list,
+                             indicate_color = YELLOW,  indicate = True):
+
         if indicate:
+
             indicate_animations = []
             for m in mobject_list:
                 indicate_animations.append(
-                    Indicate(m)
+                    Indicate(m, color = indicate_color)
                 )
-            self.play(*indicate_animations)
+            self.play(*indicate_animations, run_time = 1.5)
+
+            self.wait(1)
+
         animations = []
 
         for i in range(len(mobject_list)):
@@ -152,13 +164,15 @@ class Factoring(Scene):
 
             self.add(left_side_list[i])
 
-        self.play(*animations)
+        self.play(*animations, run_time = 1.5)
 
         for m in right_side_list:
             self.add(m)
 
         for m in mobject_list:
             self.remove(m)
+
+        self.wait(1)
 
 
 
