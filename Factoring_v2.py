@@ -1,7 +1,7 @@
 from manim import *
 import numpy as np
 """
-manim -pql test.py Factoring
+manim -pql Factoring_v2.py Factoring
 """
 class Factoring(Scene):
     def construct(self):
@@ -230,7 +230,7 @@ class Factoring(Scene):
 
         # factoring numbers
         line1 = Line([-4.2, 2.5, 0], [-4.7, 2, 0])
-        text24 = MathTex("8", "\cdot", "3")
+        text24 = MathTex("2", "\cdot", "2", "\cdot", "2", "\cdot", "3")
         text24.shift(5 * LEFT + 1.5 * UP)
 
         line2 = Line([-2.8, 2.5, 0], [-2.3, 2, 0])
@@ -300,6 +300,8 @@ class Factoring(Scene):
                            " + ",
                            "2y",
                            ")").next_to(equal, RIGHT)
+
+
 
 
         self.move_multiple_in_arc(
