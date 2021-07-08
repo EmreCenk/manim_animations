@@ -93,53 +93,60 @@ class Factoring(Scene):
             left_side_list=[expression_left[2], expression_left[5]],
             indicate_color=GREEN
         )
-        # # bracket
-        # self.play(Write(new_expression[2]))
-        # self.wait(0.5)
-        #
-        # # remaining terms (part 1)
+        # bracket
+        self.play(Write(new_expression[2]))
+        self.wait(0.5)
+
+        # remaining terms (part 1)
         # underline1 = Underline(mobject=expression[1], buff=0.2).set_color(BLUE)
         # self.play(Create(underline1), run_time=0.6)
         # self.wait(0.25)
         # self.play(Write(new_expression[3]))
-        #
-        # # minus
-        # self.play(Write(new_expression[4]))
-        # self.wait(0.5)
-        #
-        # # remaining terms (part 2)
-        # constant = MathTex("1").next_to(expression[5], DOWN * 0.7).set_color(BLUE).scale(0.8)
-        # self.play(Write(constant))
-        # self.wait(0.25)
-        # self.play(Write(new_expression[5]))
-        # self.wait(0.25)
-        #
-        # # brackets
-        # self.play(Write(new_expression[6]))
-        #
-        # # equal sign
-        # equal2 = MathTex(" = ").next_to(equal, DOWN * 6)
-        # self.play(Write(equal2))
-        # self.wait(0.5)
-        #
-        # # factorizing (x^2 - 1)
-        # self.play(new_expression[2].animate.set_color(PINK), run_time=0.05)
-        # self.play(new_expression[3].animate.set_color(PINK), run_time=0.05)
-        # self.play(new_expression[4].animate.set_color(PINK), run_time=0.05)
-        # self.play(new_expression[5].animate.set_color(PINK), run_time=0.05)
-        # self.play(new_expression[6].animate.set_color(PINK), run_time=0.05)
-        # self.wait(0.25)
-        #
-        # arrow5 = Arrow([3, 0.6, 0], [3, -0.1, 0], buff=0).set_color(PINK)
-        # self.play(FadeIn(arrow5))
-        # self.wait(0.5)
-        #
-        # # factoring
-        # final_expression = MathTex("5", "(y + 2)", "(x + 1)(x - 1)").next_to(equal2, RIGHT)
-        # self.play(Write(final_expression))
-        # underline2 = Underline(mobject=final_expression[2], buff=0.2).set_color(PINK)
-        # self.play(Create(underline2), run_time=0.6)
-        # self.wait()
+
+        self.move_multiple_in_arc(
+            mobject_list = [expression[1]],
+            end_point_list=[new_expression[3].get_center()],
+            right_side_list=[new_expression[3]],
+            left_side_list=[expression_left[1]],
+            indicate_color=BLUE
+        )
+        # minus
+        self.play(Write(new_expression[4]))
+        self.wait(0.5)
+
+        # remaining terms (part 2)
+        constant = MathTex("1").next_to(expression[5], DOWN * 0.7).set_color(BLUE).scale(0.8)
+        self.play(Write(constant))
+        self.wait(0.25)
+        self.play(Write(new_expression[5]))
+        self.wait(0.25)
+
+        # brackets
+        self.play(Write(new_expression[6]))
+
+        # equal sign
+        equal2 = MathTex(" = ").next_to(equal, DOWN * 6)
+        self.play(Write(equal2))
+        self.wait(0.5)
+
+        # factorizing (x^2 - 1)
+        self.play(new_expression[2].animate.set_color(PINK), run_time=0.05)
+        self.play(new_expression[3].animate.set_color(PINK), run_time=0.05)
+        self.play(new_expression[4].animate.set_color(PINK), run_time=0.05)
+        self.play(new_expression[5].animate.set_color(PINK), run_time=0.05)
+        self.play(new_expression[6].animate.set_color(PINK), run_time=0.05)
+        self.wait(0.25)
+
+        arrow5 = Arrow([3, 0.6, 0], [3, -0.1, 0], buff=0).set_color(PINK)
+        self.play(FadeIn(arrow5))
+        self.wait(0.5)
+
+        # factoring
+        final_expression = MathTex("5", "(y + 2)", "(x + 1)(x - 1)").next_to(equal2, RIGHT)
+        self.play(Write(final_expression))
+        underline2 = Underline(mobject=final_expression[2], buff=0.2).set_color(PINK)
+        self.play(Create(underline2), run_time=0.6)
+        self.wait()
 
     def move_multiple_in_arc(self, mobject_list, left_side_list, right_side_list, end_point_list,
                              indicate_color = YELLOW,  indicate = True):
@@ -156,16 +163,18 @@ class Factoring(Scene):
             self.wait(1)
 
         animations = []
-
+        fade_animations = []
         for i in range(len(mobject_list)):
 
             a1 = self.move_in_arc(mobject_list[i], end_point_list[i])
             animations.append(a1)
 
             self.add(left_side_list[i])
+            fade_animations.append(FadeToColor(left_side_list[i], color = GRAY))
 
         self.play(*animations, run_time = 1.5)
-
+        self.wait(0.65)
+        self.play(*fade_animations, run_time = 1)
         for m in right_side_list:
             self.add(m)
 
