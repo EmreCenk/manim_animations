@@ -19,7 +19,7 @@ class Factoring(Scene):
                 indicate_animations.append(
                     Indicate(m, color = indicate_color)
                 )
-            self.play(*indicate_animations, run_time = 1.5)
+            self.play(*indicate_animations, run_time = 1.65)
 
             self.wait(1)
 
@@ -47,13 +47,19 @@ class Factoring(Scene):
 
         self.wait(wait_time)
 
+    def move_in_arc(self, mobject, final_coordiantes,):
+        arrow = ArcBetweenPoints(mobject.get_center(), final_coordiantes)
+        return MoveAlongPath(mobject, arrow)
 
     def construct(self):
         # self.play_example_1()
         self.play_example_1()
         self.wait(1)
         self.play_example_2()
+
     def play_example_2(self):
+        #plays the second example
+
 
         # second example
         header2 = MathTex(r"\text{Factor }",
@@ -260,7 +266,7 @@ class Factoring(Scene):
         # highlight the coefficients (24)
         self.play(Indicate(text[0]))
 
-        self.add(line1)
+        self.play(FadeIn(line1))
         self.wait(0.25)
         self.play(Write(text24), run_time = 1.25)
         self.wait(0.25)
@@ -268,7 +274,7 @@ class Factoring(Scene):
         # highlight the coefficients (16)
         self.play(Indicate(text[3]))
 
-        self.add(line2)
+        self.play(FadeIn(line2))
         self.wait(0.25)
         self.play(Write(text16), run_time = 1.25)
         self.wait(1)
@@ -383,14 +389,5 @@ class Factoring(Scene):
 
 
         self.wait(3)
-    def move_in_arc(self, mobject, final_coordiantes,):
-        arrow = ArcBetweenPoints(mobject.get_center(), final_coordiantes)
-        return MoveAlongPath(mobject, arrow)
 
-    def proper_center(self, mobject, x = 0.25, y = 0.25):
-        a = mobject.get_center()
-        a[0] += x
-        a[1] += y
-
-        return a
 

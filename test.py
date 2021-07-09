@@ -251,7 +251,7 @@ class Factoring(Scene):
         # highlight the coefficients (24)
         self.play(Indicate(text[0]))
 
-        self.add(line1)
+        self.play(FadeIn(line1))
         self.wait(0.25)
         self.play(Write(text24))
         self.wait(0.25)
@@ -259,7 +259,7 @@ class Factoring(Scene):
         # highlight the coefficients (16)
         self.play(Indicate(text[3]))
 
-        self.add(line2)
+        self.play(FadeIn(line2))
         self.wait(0.25)
         self.play(Write(text16))
         self.wait(1)
