@@ -4,10 +4,55 @@ import numpy as np
 manim -pql Factoring_v2.py Factoring
 """
 class Factoring(Scene):
+    def move_multiple_in_arc(self, mobject_list, left_side_list, right_side_list, end_point_list,
+                             indicate_color = YELLOW,  indicate = True, wait_time = 1):
+
+        # This is a utility method that is used to automate moving element(s) from the left
+        # side of the equation to the right.
+
+
+
+        if indicate: #checking to see if the indicate option is enabled, if so indicating the elements
+
+            indicate_animations = []
+            for m in mobject_list:
+                indicate_animations.append(
+                    Indicate(m, color = indicate_color)
+                )
+            self.play(*indicate_animations, run_time = 1.5)
+
+            self.wait(1)
+
+        animations = [] #stores the movement animations
+        fade_animations = [] #stores the fade animations
+        for i in range(len(mobject_list)): #loops through all mobjects and stores their movement & fade animations
+
+            a1 = self.move_in_arc(mobject_list[i], end_point_list[i])
+            animations.append(a1)
+
+            self.add(left_side_list[i])
+            fade_animations.append(FadeToColor(left_side_list[i], color = GRAY))
+
+        self.play(*animations, run_time = 1.5) #plays all movement animations at once
+
+        for m in right_side_list: #makes the right side of the equation visible
+            self.add(m)
+
+        for m in mobject_list: #removes the moved elements to avoid congruent mobjects overlapping
+            self.remove(m)
+
+        self.wait(0.65)
+        self.play(*fade_animations, run_time = 1) #plays all fade animations
+
+
+        self.wait(wait_time)
+
+
     def construct(self):
         # self.play_example_1()
         self.play_example_1()
-
+        self.wait(1)
+        self.play_example_2()
     def play_example_2(self):
 
         # second example
@@ -168,44 +213,6 @@ class Factoring(Scene):
         self.wait(0.75)
         self.play(Create(underline2), run_time = 0.6)
 
-    def move_multiple_in_arc(self, mobject_list, left_side_list, right_side_list, end_point_list,
-                             indicate_color = YELLOW,  indicate = True):
-
-        if indicate:
-
-            indicate_animations = []
-            for m in mobject_list:
-                indicate_animations.append(
-                    Indicate(m, color = indicate_color)
-                )
-            self.play(*indicate_animations, run_time = 1.5)
-
-            self.wait(1)
-
-        animations = []
-        fade_animations = []
-        for i in range(len(mobject_list)):
-
-            a1 = self.move_in_arc(mobject_list[i], end_point_list[i])
-            animations.append(a1)
-
-            self.add(left_side_list[i])
-            fade_animations.append(FadeToColor(left_side_list[i], color = GRAY))
-
-        self.play(*animations, run_time = 1.5)
-
-        for m in right_side_list:
-            self.add(m)
-
-        for m in mobject_list:
-            self.remove(m)
-
-        self.wait(0.65)
-        self.play(*fade_animations, run_time = 1)
-
-
-        self.wait(1)
-
 
 
 
@@ -271,7 +278,7 @@ class Factoring(Scene):
         text_x2 = MathTex("x^{2}", "y").next_to(text16, RIGHT)
 
         #Making copies for the left side of the equation:
-        text_x6_left = MathTex("x^{4}", "x^{2}").next_to(text24, RIGHT)
+        text_x6_left = MathTex("x^{4}", "x^{2}").next_to(text24, RIGHT).shift(UP*0.06)
         text_x2_left = MathTex("x^{2}", "y").next_to(text16, RIGHT)
 
 
@@ -321,7 +328,6 @@ class Factoring(Scene):
             left_side_list=llist,
             indicate_color=BLUE
         )
-        self.wait(2)
 
 
 
@@ -353,21 +359,17 @@ class Factoring(Scene):
             end_point_list=[new_text[6].get_center(), new_text[7].get_center()],
             right_side_list=[new_text[6], new_text[7]],
             left_side_list=[text16_left[6], text_x2_left[1]],
-            indicate_color=BLUE
+            indicate_color=BLUE,
+            wait_time=0.2
         )        # bracket
         self.play(Write(new_text[-1])) #final bracket
-        to_fade = [text,
-                   text24,
-                   text16,
-                   text_x2_left,
-                   text16_left,
-                   text_x6_left,
-                   line1,
-                   line2,
-                   plus,
-                   equal,
-                   new_text]
 
+        self.wait(0.25)
+        self.play(FadeToColor(new_text, color = YELLOW), run_time = 1)
+        new_text.set_color(YELLOW)
+
+
+        to_fade = self.mobjects
         fade_animations = []
         for mobject in to_fade:
             fade_animations.append(
@@ -378,6 +380,7 @@ class Factoring(Scene):
 
         for mobject in to_fade:
             self.remove(mobject)
+
 
         self.wait(3)
     def move_in_arc(self, mobject, final_coordiantes,):
