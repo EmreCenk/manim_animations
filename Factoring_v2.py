@@ -301,7 +301,8 @@ class Factoring(Scene):
                            "3",
                            "x^{4}",
                            " + ",
-                           "2y",
+                           "2",
+                           "y",
                            ")").next_to(equal, RIGHT)
 
 
@@ -346,56 +347,26 @@ class Factoring(Scene):
         )        # bracket
 
 
-
-        # remaining terms (part 2)
-
-        self.play(
-            Indicate(text16[2], color = BLUE),
-            Indicate(text_x2[1], color = BLUE)
-        )
-
-        # underline3 = Underline(mobject=text16[2], buff=0.2).set_color(BLUE)
-        # self.play(Create(underline3), run_time=0.6)
-        #
-        # underline4 = Underline(mobject=text_x2[1], buff=0.2).set_color(BLUE)
-        # self.play(Create(underline4), run_time=0.6)
-
-        self.wait(0.25)
-
-        self.add(text16_left[2])
-        self.add(text_x2_left[1])
-
-        to_move = self.move_in_arc(text16[2], self.proper_center(new_text[5], 0.15, 0.26))
-        to_move2 = self.move_in_arc(text_x2[1], self.proper_center(new_text[5], 0.39, 0.28))
-
-        self.play(to_move,
-                  to_move2,
-                  run_time = 2)
-        self.remove(text16[2])
-        self.remove(text_x2[1])
-
-        self.add(new_text[5])
-
-        self.play(
-            FadeToColor(text16_left[2], color = GRAY),
-            FadeToColor(text_x2_left[1], color = GRAY)
-        )
-        self.wait(0.25)
-
-        # bracket
-        self.play(Write(new_text[6]))
-
-        self.play(FadeToColor(new_text, YELLOW),
-                  run_time = 1)
-
-        to_fade = [text, text24[1], text16[1],
-                          text_x2_left,
-                          text24_left,
-                          text16_left,
-                          text_x6_left,
-                          line1, line2,
-                          plus, equal,
-                          new_text]
+        self.play(Write(new_text[5])) #plus
+        self.move_multiple_in_arc(
+            mobject_list = [text16[6], text_x2[1]],
+            end_point_list=[new_text[6].get_center(), new_text[7].get_center()],
+            right_side_list=[new_text[6], new_text[7]],
+            left_side_list=[text16_left[6], text_x2_left[1]],
+            indicate_color=BLUE
+        )        # bracket
+        self.play(Write(new_text[-1])) #final bracket
+        to_fade = [text,
+                   text24,
+                   text16,
+                   text_x2_left,
+                   text16_left,
+                   text_x6_left,
+                   line1,
+                   line2,
+                   plus,
+                   equal,
+                   new_text]
 
         fade_animations = []
         for mobject in to_fade:
