@@ -8,6 +8,7 @@ from manim import *
 class VennScene(Scene):
 
     def construct(self):
+        self.camera.background_color = BLUE
         # self.introduction()
         # self.wait(1)
         self.venn_animation()
@@ -31,16 +32,16 @@ class VennScene(Scene):
             FadeOut(u_set_text, a_set_text, b_set_text, run_time = 2.5)
         )
 
-    def venn_animation(self):
+    def create_shapes(self):
 
         #outer rectangle:
-        outer_rectangle = Rectangle().scale(3.2)
+        outer_rectangle = Rectangle().scale(2)
         outer_rectangle.fill_color = YELLOW
 
-        circle_scale = 1.75
+        circle_scale = 1
         left_circle = Circle().scale(circle_scale)
         right_circle = Circle().scale(circle_scale)
-        shift_coef = 1.5 * circle_scale
+        shift_coef = 1.25 * circle_scale
 
         #a shift coefficient of 1.5 creates a perfect venn diagram
 
@@ -49,7 +50,7 @@ class VennScene(Scene):
 
 
         #Creating the labels for the shapes:
-        label_shift_coef = 0.60
+        label_shift_coef = 0.4
         label_A = Tex("A").next_to(left_circle,
                                    direction = (LEFT + UP) ).shift((RIGHT+DOWN) * label_shift_coef)
 
@@ -58,12 +59,27 @@ class VennScene(Scene):
 
         label_U = Tex("U").next_to(outer_rectangle,
                                    direction = RIGHT + UP).shift(LEFT+DOWN)
-        self.play(FadeIn(right_circle,
-                         left_circle,
-                         outer_rectangle,
-                         label_A,
-                         label_B,
-                         label_U,
-                         run_time = 2))
 
+
+        to_shift = [right_circle,
+                    left_circle,
+                    outer_rectangle,
+                    label_A,
+                    label_B,
+                    label_U,]
+
+        #shift everything to left:
+        to_shift = [to_shift[i].shift(LEFT * 3 + UP * 0) for i in range(len(to_shift))]
+        self.play(FadeIn(*to_shift, run_time = 2))
+
+        return to_shift
+
+    def create_sets(self, reference_point: Mobject):
+        Aset_label = MathTex("A = \{1, 2, 3, 5, 8\}").next_to(reference_point, direction = RIGHT)
+        Bset_label= MathTex("B = \{2, 4, 6, 8\}").next_to(Aset_label, direction = DOWN)
+        self.play(FadeIn(Aset_label, Bset_label, run_time = 2))
+
+    def venn_animation(self):
+        right_circle, left_circle, outer_rectangle, label_A, label_B, label_U, = self.create_shapes()
+        self.create_sets(outer_rectangle)
 
