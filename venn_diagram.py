@@ -136,8 +136,23 @@ class VennScene(Scene):
         return to_shift
 
     def create_sets(self, reference_point: Mobject):
-        Aset_label = MathTex("A = \{1, 2, 3, 5, 8\}").next_to(reference_point, direction = RIGHT)
-        Bset_label= MathTex("B = \{2, 4, 6, 8\}").next_to(Aset_label, direction = DOWN)
+
+        Aset_label = MathTex("A",
+                             "= \{",
+                             "1",
+                             "2",
+                             "3",
+                             "5",
+                             "8",
+                             "}").next_to(reference_point, direction = RIGHT)
+
+        Bset_label= MathTex("B",
+                            "= \{",
+                            "2",
+                            "4",
+                            "6",
+                            "8",
+                            "\}").next_to(Aset_label, direction = DOWN)
         self.play(FadeIn(Aset_label, Bset_label, run_time = 2))
 
     def venn_animation(self):
