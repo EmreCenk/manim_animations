@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4eb02fe3-37b7-400c-bbe8-319f841c14a4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/VectorPlane.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Factoring_v1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Factoring_v2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Factoring_v2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +33,12 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="configurable.group.editor" />
   </component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Murat\Desktop\Emre\Python\manim" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.Testing3">
     <configuration name="Factoring_v1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="manim" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -54,8 +60,30 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Testing3" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="manim" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$APPLICATION_CONFIG_DIR$/scratches" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$APPLICATION_CONFIG_DIR$/scratches/Testing3.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Testing3" />
         <item itemvalue="Python.Factoring_v1" />
       </list>
     </recent_temporary>
@@ -74,30 +102,38 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1026" y="502" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1625616991859">
+    <state x="1026" y="502" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1627075815649">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="1026" y="502" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2560.1400@0.0.2560.1400" timestamp="1625616991859" />
-    <state width="1256" height="544" key="GridCell.Tab.0.bottom" timestamp="1625764225253">
+    <state x="1026" y="502" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2560.1400@0.0.2560.1400" timestamp="1627075815649" />
+    <state x="1060" y="455" key="FileChooserDialogImpl" timestamp="1625803122305">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1345" height="249" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1625247510101" />
-    <state width="1256" height="544" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1625764225253" />
-    <state width="1256" height="544" key="GridCell.Tab.0.center" timestamp="1625764225252">
+    <state x="1060" y="455" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1625803122305" />
+    <state width="1345" height="248" key="GridCell.Tab.0.bottom" timestamp="1627394970047">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1345" height="249" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1625247510101" />
-    <state width="1256" height="544" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1625764225252" />
-    <state width="1256" height="544" key="GridCell.Tab.0.left" timestamp="1625764225251">
+    <state width="2539" height="544" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.2560.1400@1366.0.2560.1400" timestamp="1627167485279" />
+    <state width="1345" height="248" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1627355502046" />
+    <state width="1345" height="248" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1627394970047" />
+    <state width="1345" height="248" key="GridCell.Tab.0.center" timestamp="1627394970047">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1345" height="249" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1625247510101" />
-    <state width="1256" height="544" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1625764225251" />
-    <state width="1256" height="544" key="GridCell.Tab.0.right" timestamp="1625764225252">
+    <state width="2539" height="544" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.2560.1400@1366.0.2560.1400" timestamp="1627167485279" />
+    <state width="1345" height="248" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1627355502038" />
+    <state width="1345" height="248" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1627394970047" />
+    <state width="1345" height="248" key="GridCell.Tab.0.left" timestamp="1627394970047">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1345" height="249" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1625247510101" />
-    <state width="1256" height="544" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1625764225252" />
+    <state width="2539" height="544" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.2560.1400@1366.0.2560.1400" timestamp="1627167485279" />
+    <state width="1345" height="248" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1627355502030" />
+    <state width="1345" height="248" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1627394970047" />
+    <state width="1345" height="248" key="GridCell.Tab.0.right" timestamp="1627394970047">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2539" height="544" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.2560.1400@1366.0.2560.1400" timestamp="1627167485279" />
+    <state width="1345" height="248" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1627355502046" />
+    <state width="1345" height="248" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1627394970047" />
     <state x="303" y="320" width="672" height="678" key="search.everywhere.popup" timestamp="1625769538075">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
