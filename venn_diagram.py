@@ -34,7 +34,7 @@ class VennScene(Scene):
     def venn_animation(self):
 
         #outer rectangle:
-        outer_rectangle = Rectangle().scale(2.5)
+        outer_rectangle = Rectangle().scale(3.2)
         outer_rectangle.fill_color = YELLOW
 
         circle_scale = 1.75
@@ -48,6 +48,22 @@ class VennScene(Scene):
         right_circle.shift(RIGHT*shift_coef)
 
 
-        self.play(FadeIn(right_circle, left_circle, outer_rectangle, run_time = 2))
+        #Creating the labels for the shapes:
+        label_shift_coef = 0.60
+        label_A = Tex("A").next_to(left_circle,
+                                   direction = (LEFT + UP) ).shift((RIGHT+DOWN) * label_shift_coef)
+
+        label_B = Tex("B").next_to(right_circle,
+                                   direction = (RIGHT + UP)).shift((LEFT+DOWN) * label_shift_coef)
+
+        label_U = Tex("U").next_to(outer_rectangle,
+                                   direction = RIGHT + UP).shift(LEFT+DOWN)
+        self.play(FadeIn(right_circle,
+                         left_circle,
+                         outer_rectangle,
+                         label_A,
+                         label_B,
+                         label_U,
+                         run_time = 2))
 
 
