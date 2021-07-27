@@ -12,6 +12,56 @@ class VennScene(Scene):
         # self.introduction()
         # self.wait(1)
         self.venn_animation()
+
+
+    def move_multiple_in_arc(self, mobject_list, left_side_list, right_side_list, end_point_list,
+                             indicate_color = YELLOW,  indicate = True, wait_time = 1):
+
+        # This is a utility method that is used to automate moving element(s) from the left
+        # side of the equation to the right.
+
+
+
+        if indicate: #checking to see if the indicate option is enabled, if so indicating the elements
+
+            indicate_animations = []
+            for m in mobject_list:
+                indicate_animations.append(
+                    Indicate(m, color = indicate_color)
+                )
+            self.play(*indicate_animations, run_time = 1.65)
+
+            self.wait(1)
+
+        animations = [] #stores the movement animations
+        fade_animations = [] #stores the fade animations
+        for i in range(len(mobject_list)): #loops through all mobjects and stores their movement & fade animations
+
+            a1 = self.move_in_arc(mobject_list[i], end_point_list[i])
+            animations.append(a1)
+
+            self.add(left_side_list[i])
+            fade_animations.append(FadeToColor(left_side_list[i], color = GRAY))
+
+        self.play(*animations, run_time = 1.5) #plays all movement animations at once
+
+        for m in right_side_list: #makes the right side of the equation visible
+            self.add(m)
+
+        for m in mobject_list: #removes the moved elements to avoid congruent mobjects overlapping
+            self.remove(m)
+
+        self.wait(0.65)
+        self.play(*fade_animations, run_time = 1) #plays all fade animations
+
+
+        self.wait(wait_time)
+
+    def move_in_arc(self, mobject, final_coordiantes,):
+        arrow = ArcBetweenPoints(mobject.get_center(), final_coordiantes)
+        return MoveAlongPath(mobject, arrow)
+
+
     def introduction(self):
         video_name = Tex("Venn Diagram With 2 Sets")
         self.play(FadeIn(video_name, run_time = 2))
@@ -31,6 +81,8 @@ class VennScene(Scene):
         self.play(
             FadeOut(u_set_text, a_set_text, b_set_text, run_time = 2.5)
         )
+
+
 
     def create_shapes(self):
 
@@ -91,4 +143,6 @@ class VennScene(Scene):
     def venn_animation(self):
         right_circle, left_circle, outer_rectangle, label_A, label_B, label_U, = self.create_shapes()
         self.create_sets(outer_rectangle)
+
+
 
