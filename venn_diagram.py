@@ -135,7 +135,7 @@ class VennScene(Scene):
 
         return to_shift
 
-    def create_sets(self, reference_point: Mobject):
+    def create_set_labels(self, reference_point1: Mobject, left_circle: Mobject):
 
         Aset_label = MathTex("A",
                              "= \{",
@@ -144,7 +144,7 @@ class VennScene(Scene):
                              "3",
                              "5",
                              "8",
-                             "}").next_to(reference_point, direction = RIGHT)
+                             "\}").next_to(reference_point1, direction = RIGHT)
 
         Bset_label= MathTex("B",
                             "= \{",
@@ -153,11 +153,19 @@ class VennScene(Scene):
                             "6",
                             "8",
                             "\}").next_to(Aset_label, direction = DOWN)
-        self.play(FadeIn(Aset_label, Bset_label, run_time = 2))
+
+
+        items = ["1", "3", "5"]
+        left_circle_items = [MathTex(items[i]).shift(
+            left_circle.get_center()).shift(DOWN * 0.6 * (i - 1)) for i in range(len(items))]
+
+
+
+        self.play(FadeIn(Aset_label, Bset_label, *left_circle_items, run_time = 2))
 
     def venn_animation(self):
         right_circle, left_circle, outer_rectangle, label_A, label_B, label_U, = self.create_shapes()
-        self.create_sets(outer_rectangle)
+        self.create_set_labels(outer_rectangle, left_circle)
 
 
 
