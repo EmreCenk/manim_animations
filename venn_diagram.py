@@ -34,14 +34,23 @@ class VennScene(Scene):
 
     def create_shapes(self):
 
+
+        # circle_scale is the magic number. Everything else is relative to this.
+        # As a result, simply changing the circle scale also adjusts everything else else accordingly
+        circle_scale = 1.35
+
         #outer rectangle:
-        outer_rectangle = Rectangle().scale(2)
+        outer_rectangle = Rectangle().scale(circle_scale * 1.45)
         outer_rectangle.fill_color = YELLOW
 
-        circle_scale = 1
+
+
+
+
+
         left_circle = Circle().scale(circle_scale)
         right_circle = Circle().scale(circle_scale)
-        shift_coef = 1.25 * circle_scale
+        shift_coef = 1.2 * circle_scale
 
         #a shift coefficient of 1.5 creates a perfect venn diagram
 
@@ -50,7 +59,7 @@ class VennScene(Scene):
 
 
         #Creating the labels for the shapes:
-        label_shift_coef = 0.4
+        label_shift_coef = 0.4 * circle_scale
         label_A = Tex("A").next_to(left_circle,
                                    direction = (LEFT + UP) ).shift((RIGHT+DOWN) * label_shift_coef)
 
@@ -58,7 +67,7 @@ class VennScene(Scene):
                                    direction = (RIGHT + UP)).shift((LEFT+DOWN) * label_shift_coef)
 
         label_U = Tex("U").next_to(outer_rectangle,
-                                   direction = RIGHT + UP).shift(LEFT+DOWN)
+                                   direction = RIGHT + UP).shift( (LEFT+DOWN) * 0.8 )
 
 
         to_shift = [right_circle,
