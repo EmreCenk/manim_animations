@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4eb02fe3-37b7-400c-bbe8-319f841c14a4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/VectorPlane.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venn_diagram.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Factoring_v2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Factoring_v2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,10 +101,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1026" y="502" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1627075815649">
+    <state x="1026" y="502" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1627401396585">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="1026" y="502" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2560.1400@0.0.2560.1400" timestamp="1627075815649" />
+    <state x="1026" y="502" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2560.1400@0.0.2560.1400" timestamp="1627401396585" />
     <state x="1060" y="455" key="FileChooserDialogImpl" timestamp="1625803122305">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
