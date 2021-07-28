@@ -22,8 +22,9 @@ class VennScene(Scene):
         # This is a utility method that is used to automate moving element(s) from the left
         # side of the equation to the right.
         if left_side_list is None:
-            left_side_list = mobject_list
-
+            left_side_list = []
+            for m in mobject_list:
+                left_side_list.append(copy.deepcopy(m))
         if end_point_list is None:
             end_point_list = [end_mobject_list[i].get_center() for i in range(len(end_mobject_list))]
 
@@ -194,7 +195,7 @@ class VennScene(Scene):
 
         why_intersect_explanation = Tex("Since A and B have common elements, A and be will intersect")
         self.play(FadeIn(why_intersect_explanation, run_time = 1.5))
-        self.wait(1)
+        self.wait(3)
 
         self.play(FadeOut(why_intersect_explanation))
 
@@ -215,18 +216,7 @@ class VennScene(Scene):
             move_animations.append(ReplacementTransform(m, mw, run_time = 2))
         self.play(*move_animations)
 
-    # def move_sets_into_circle(self,Aset_label: Mobject,
-    #                          Bset_label: Mobject,
-    #                          left_circle_items: Mobject,
-    #                          right_circle_items: Mobject):
-    #
-    #     #moving the items to the left circle:
-    #     Aset_copy = copy.deepcopy(Aset_label)
-    #     self.move_multiple_in_arc(
-    #         mobject_list = [Aset_label[2], Aset_label[6], Aset_label[8]],
-    #         end_mobject_list= [left_circle_items[0], left_circle_items[1], left_circle_items[2]],
-    #         left_side_list = [Aset_copy[2], Aset_copy[6], Aset_copy[8]]
-    #     )
+
 
     def create_items(self, left_circle, right_circle):
         items = ["1", "3", "5"]
@@ -241,7 +231,6 @@ class VennScene(Scene):
         intersection_items = [MathTex(items[i]).shift(
             right_circle.get_center()).shift(DOWN * 0.6 * (i - 1) + 0.8 * LEFT + DOWN * 0.3) for i in range(len(items))]
 
-        self.play(FadeIn(*right_circle_items, *left_circle_items, *intersection_items))
         return left_circle_items, right_circle_items, intersection_items
 
     def venn_animation(self):
@@ -254,27 +243,42 @@ class VennScene(Scene):
                                                         right_circle)
 
 
-        self.convert_to_venn(Aset_label, Bset_label,
-                             [left_circle],
-                             [right_circle],
-                             [right_circle, left_circle, outer_rectangle, label_A, label_B, label_U, Aset_label, Bset_label])
+        #moves the circles closer, and explains why we did so:
+        self.convert_to_venn(Aset_label,
+                             Bset_label,
+                             left_side = [left_circle, label_A],
+                             right_side = [right_circle, label_B],
+                             everything_to_fade_out = [right_circle,
+                                                       left_circle,
+                                                       outer_rectangle,
+                                                       label_A,
+                                                       label_B,
+                                                       label_U,
+                                                       Aset_label,
+                                                       Bset_label])
 
-        left_circle_items, right_circle_items, intersection_items = self.create_items(left_circle, right_circle)
         self.wait(1)
 
+        left_circle_items, right_circle_items, intersection_items = self.create_items(left_circle, right_circle)
+        # self.play(FadeIn(*right_circle_items, *left_circle_items, *intersection_items))
+
+        #moving items into the circles:
 
 
+        #moving the items to the left circle:
+        self.move_multiple_in_arc(
+            mobject_list = [Aset_label[2], Aset_label[6], Aset_label[8]],
+            end_mobject_list= [left_circle_items[0], left_circle_items[1], left_circle_items[2]],
+        )
 
-
-
-
-        # self.move_sets_into_circle( Aset_label, Bset_label, left_circle_items, right_circle_items)
-
-
+        self.move_multiple_in_arc(
+            mobject_list = [Bset_label[4], Bset_label[6]],
+            end_mobject_list= [right_circle_items[0], right_circle_items[1]],
+        )
         # self.move_multiple_in_arc1(
         #     mobject_list = [expression[0], expression[4]],
         #     end_point_list=[new_expression[0].get_center(), new_expression[0].get_center()],
         #     end_mobject_list=[new_expression[0], new_expression[0]],
         #     left_side_list=[expression_left[0], expression_left[4]]
         # )
-        #
+
