@@ -11,8 +11,8 @@ class VennScene(Scene):
 
     def construct(self):
         # self.camera.background_color = BLUE
-        # self.introduction()
-        # self.wait(1)
+        self.introduction()
+        self.wait(1)
         self.venn_animation()
 
 
@@ -307,6 +307,7 @@ class VennScene(Scene):
 
         raise ValueError("The phrase is not in the mathtex object provided")
     def venn_animation(self):
+
         right_circle, left_circle, outer_rectangle, label_A, label_B, label_U, circle_scale = self.create_shapes()
 
 

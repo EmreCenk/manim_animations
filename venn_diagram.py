@@ -11,8 +11,8 @@ class VennScene(Scene):
 
     def construct(self):
         # self.camera.background_color = BLUE
-        # self.introduction()
-        # self.wait(1)
+        self.introduction()
+        self.wait(1)
         self.venn_animation()
 
 
