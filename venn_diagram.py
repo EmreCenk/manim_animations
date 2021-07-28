@@ -21,7 +21,11 @@ class VennScene(Scene):
                              end_point_list = None,
                              left_side_list = None,
                              fade_out_animation = True,
-                             indicate_color = YELLOW, indicate = True, wait_time = 1, movement_animation_time = 1.5):
+                             indicate_color = YELLOW,
+                             indicate = True,
+                             wait_time = 1,
+                             movement_animation_time = 1.5,
+                             delete_end_mobjects = False):
 
         # This is a utility method that is used to automate moving element(s) from one point to another
         if left_side_list is None:
@@ -58,7 +62,11 @@ class VennScene(Scene):
         for m in end_mobject_list: #makes the right side of the equation visible
             self.add(m)
 
-        for m in mobject_list: #removes the moved elements to avoid congruent mobjects overlapping
+        if delete_end_mobjects:
+            to_loop = end_mobject_list
+        else:
+            to_loop = mobject_list
+        for m in to_loop: #removes the moved elements to avoid congruent mobjects overlapping
             self.remove(m)
 
         self.wait(0.65)
@@ -146,11 +154,18 @@ class VennScene(Scene):
         to_shift = [to_shift[i].shift(LEFT * 3 + UP * 0) for i in range(len(to_shift))]
         self.play(FadeIn(*to_shift, run_time = 2))
 
+        to_shift.append(circle_scale)
         return to_shift
 
     def create_set_labels(self, reference_point1: Mobject,
                           left_circle: Mobject,
                           right_circle: Mobject):
+
+
+
+        Uset_label = MathTex('U = \{', '1', ',', '2', ',',
+                '3', ',', '4', ',', '5', ',', '6', ',', '7',
+                ',', '8', ',', '9', ',', '10', '\}').next_to(reference_point1, direction = RIGHT).shift(UP)
 
         Aset_label = MathTex("A",
                              "= \{",
@@ -163,7 +178,7 @@ class VennScene(Scene):
                              "5",
                              ", ",
                              "8",
-                             "\}").next_to(reference_point1, direction = RIGHT)
+                             "\}").next_to(Uset_label, direction = DOWN)
 
         Bset_label= MathTex("B",
                             "= \{",
@@ -176,9 +191,8 @@ class VennScene(Scene):
                             "8",
                             "\}").next_to(Aset_label, direction = DOWN)
 
-        Uset_label = MathTex('U = \{', '1', ',', '2', ',',
-                '3', ',', '4', ',', '5', ',', '6', ',', '7',
-                ',', '8', ',', '9', ',', '10', '\}').next_to(Aset_label, direction = UP).shift(RIGHT*1.3)
+
+
 
         self.play(FadeIn(Aset_label, Bset_label, run_time = 2))
 
@@ -225,20 +239,24 @@ class VennScene(Scene):
 
 
 
-    def create_items(self, left_circle, right_circle):
+    def create_items(self, left_circle: Mobject, right_circle: Mobject, circle_scale: float):
         items = ["1", "3", "5"]
-        left_circle_items = [MathTex(items[i]).shift(
+        left_circle_items = [Tex(items[i]).shift(
             left_circle.get_center()).shift(DOWN * 0.6 * (i - 1) + 0.3 * LEFT) for i in range(len(items))]
 
         items = ["4", "6"]
-        right_circle_items = [MathTex(items[i]).shift(
+        right_circle_items = [Tex(items[i]).shift(
             right_circle.get_center()).shift(DOWN * 0.6 * (i - 1) + 0.3 * RIGHT + DOWN * 0.3) for i in range(len(items))]
 
         items = ["2", "8"]
-        intersection_items = [MathTex(items[i]).shift(
+        intersection_items = [Tex(items[i]).shift(
             right_circle.get_center()).shift(DOWN * 0.6 * (i - 1) + 0.8 * LEFT + DOWN * 0.3) for i in range(len(items))]
 
-        return left_circle_items, right_circle_items, intersection_items
+        outside_items = [Tex("9").shift(left_circle.get_center()).shift(LEFT * 1.25 * circle_scale),
+                         Tex("7").shift(right_circle.get_center()).shift(RIGHT * 1.45 * circle_scale + UP * 0.5),
+                         Tex("10").shift(right_circle.get_center()).shift(RIGHT * 1.25 * circle_scale + DOWN )]
+
+        return left_circle_items, right_circle_items, intersection_items, outside_items
     def move_items_into_circles(self, Aset_label: MathTex,
                                 Bset_label: MathTex,
                                 intersection_items: Sequence[MathTex],
@@ -289,7 +307,7 @@ class VennScene(Scene):
 
         raise ValueError("The phrase is not in the mathtex object provided")
     def venn_animation(self):
-        right_circle, left_circle, outer_rectangle, label_A, label_B, label_U, = self.create_shapes()
+        right_circle, left_circle, outer_rectangle, label_A, label_B, label_U, circle_scale = self.create_shapes()
 
 
         # Creating the set definitions at the right side: (A = {1,3,4,5,8} etc.):
@@ -314,8 +332,12 @@ class VennScene(Scene):
 
         self.wait(1)
 
-        left_circle_items, right_circle_items, intersection_items = self.create_items(left_circle, right_circle)
-        # self.play(FadeIn(*right_circle_items, *left_circle_items, *intersection_items))
+        left_circle_items, right_circle_items, intersection_items, outside_items= self.create_items(left_circle,
+                                                                                                    right_circle,
+                                                                                                    circle_scale)
+
+        self.play(FadeIn(*right_circle_items, *left_circle_items, *intersection_items, *outside_items))
+
 
         #moving items into the circles:
         Aset_copy, Bset_copy =  self.move_items_into_circles(Aset_label,
@@ -329,29 +351,28 @@ class VennScene(Scene):
 
 
         #gets content from the set texts
-        a_content = [Aset_copy[self.find_mathtex(Aset_copy, str(i))] for i in [1,2,3,5,8]]
         u_content1 = [Uset_label[self.find_mathtex(Uset_label, str(i))] for i in [1,2,3,5,8]]
+        a_content = [Aset_copy[self.find_mathtex(Aset_copy, str(i))] for i in [1,2,3,5,8]]
 
-        print("here it is", Bset_copy)
-        b_content = [Bset_copy[self.find_mathtex(Bset_copy, str(i))] for i in [2,4,6,8]]
         u_content2 = [Uset_label[self.find_mathtex(Uset_label, str(i))] for i in [2,4,6,8]]
+        b_content = [Bset_copy[self.find_mathtex(Bset_copy, str(i))] for i in [2,4,6,8]]
+
 
         self.move_multiple_in_arc(
             mobject_list = a_content,
             end_mobject_list = u_content1,
             fade_out_animation = False,
+            delete_end_mobjects=True
 
         )
-        for m in u_content1:
-            m.color = GRAY
+
+
+
 
         self.move_multiple_in_arc(
             mobject_list=b_content,
             end_mobject_list=u_content2,
             fade_out_animation=False,
+            delete_end_mobjects=True
 
         )
-
-        for m in u_content2:
-            m.color = GRAY
-
