@@ -296,5 +296,7 @@ class VennScene(Scene):
                                 intersection_items,
                                 right_circle_items,
                                 left_circle_items)
+        u_set_text = MathTex("U = \{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\}")
+
 
 
