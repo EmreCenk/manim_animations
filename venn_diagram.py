@@ -17,7 +17,7 @@ class VennScene(Scene):
 
 
     def move_multiple_in_arc(self, mobject_list, end_mobject_list, end_point_list = None, left_side_list = None,
-                             indicate_color = YELLOW, indicate = True, wait_time = 1):
+                             indicate_color = YELLOW, indicate = True, wait_time = 1, movement_animation_time = 1.5):
 
         # This is a utility method that is used to automate moving element(s) from the left
         # side of the equation to the right.
@@ -50,7 +50,7 @@ class VennScene(Scene):
             self.add(left_side_list[i])
             fade_animations.append(FadeToColor(left_side_list[i], color = GRAY))
 
-        self.play(*animations, run_time = 1.5) #plays all movement animations at once
+        self.play(*animations, run_time = movement_animation_time) #plays all movement animations at once
 
         for m in end_mobject_list: #makes the right side of the equation visible
             self.add(m)
@@ -266,19 +266,26 @@ class VennScene(Scene):
 
 
         #moving the items to the left circle:
+        #note: the move_multiple_in_arc method is a custom method I wrote to automate moving mobjects from
+        #one point to another. The code for this is in the top of the class.
+
+        self.move_multiple_in_arc(
+            mobject_list = [Aset_label[4], Aset_label[-2], Bset_label[2], Bset_label[-2]],
+            end_mobject_list= [intersection_items[0], intersection_items[1], intersection_items[0], intersection_items[1]],
+            movement_animation_time = 2
+
+        )
+
         self.move_multiple_in_arc(
             mobject_list = [Aset_label[2], Aset_label[6], Aset_label[8]],
             end_mobject_list= [left_circle_items[0], left_circle_items[1], left_circle_items[2]],
+            movement_animation_time = 2
         )
 
         self.move_multiple_in_arc(
             mobject_list = [Bset_label[4], Bset_label[6]],
             end_mobject_list= [right_circle_items[0], right_circle_items[1]],
+            movement_animation_time = 2
         )
-        # self.move_multiple_in_arc1(
-        #     mobject_list = [expression[0], expression[4]],
-        #     end_point_list=[new_expression[0].get_center(), new_expression[0].get_center()],
-        #     end_mobject_list=[new_expression[0], new_expression[0]],
-        #     left_side_list=[expression_left[0], expression_left[4]]
-        # )
+
 
