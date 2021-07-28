@@ -227,19 +227,7 @@ class VennScene(Scene):
     #         left_side_list = [Aset_copy[2], Aset_copy[6], Aset_copy[8]]
     #     )
 
-
-    def venn_animation(self):
-        right_circle, left_circle, outer_rectangle, label_A, label_B, label_U, = self.create_shapes()
-        Aset_label, Bset_label = self.create_set_labels(outer_rectangle,
-                                                        left_circle,
-                                                        right_circle)
-
-
-        self.convert_to_venn(Aset_label, Bset_label,
-                             [left_circle],
-                             [right_circle])
-
-        #creating the elements inside the circles:
+    def create_items(self, left_circle, right_circle):
         items = ["1", "3", "5"]
         left_circle_items = [MathTex(items[i]).shift(
             left_circle.get_center()).shift(DOWN * 0.6 * (i - 1) + 0.3 * LEFT) for i in range(len(items))]
@@ -253,7 +241,30 @@ class VennScene(Scene):
             right_circle.get_center()).shift(DOWN * 0.6 * (i - 1) + 0.8 * LEFT + DOWN * 0.3) for i in range(len(items))]
 
         self.play(FadeIn(*right_circle_items, *left_circle_items, *intersection_items))
+        return left_circle_items, right_circle_items, intersection_items
+
+    def venn_animation(self):
+        right_circle, left_circle, outer_rectangle, label_A, label_B, label_U, = self.create_shapes()
+
+
+        # Creating the set definitions at the right side: (A = {1,3,4,5,8} etc.):
+        Aset_label, Bset_label = self.create_set_labels(outer_rectangle,
+                                                        left_circle,
+                                                        right_circle)
+
+
+        self.convert_to_venn(Aset_label, Bset_label,
+                             [left_circle],
+                             [right_circle])
+
+        left_circle_items, right_circle_items, intersection_items = self.create_items(left_circle, right_circle)
         self.wait(1)
+
+
+
+
+
+
 
         # self.move_sets_into_circle( Aset_label, Bset_label, left_circle_items, right_circle_items)
 
