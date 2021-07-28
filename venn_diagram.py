@@ -181,6 +181,7 @@ class VennScene(Scene):
                         Bset: Mobject,
                         left_side: Sequence[Mobject],
                         right_side: Sequence[Mobject],
+                        everything_to_fade_out: Sequence[Mobject]
                         ):
 
 
@@ -189,7 +190,7 @@ class VennScene(Scene):
 
 
 
-        self.play(FadeOut(Aset[4], Aset[-2], Bset[2], Bset[-2], run_time = 2))
+        self.play(FadeOut(*everything_to_fade_out, run_time = 2))
 
         why_intersect_explanation = Tex("Since A and B have common elements, A and be will intersect")
         self.play(FadeIn(why_intersect_explanation, run_time = 1.5))
@@ -199,7 +200,7 @@ class VennScene(Scene):
 
         self.wait(0.5)
 
-        self.play(FadeIn(Aset[4], Aset[-2], Bset[2], Bset[-2], run_time = 2))
+        self.play(FadeIn(*everything_to_fade_out, run_time = 2))
 
 
         move_animations = []
@@ -255,7 +256,8 @@ class VennScene(Scene):
 
         self.convert_to_venn(Aset_label, Bset_label,
                              [left_circle],
-                             [right_circle])
+                             [right_circle],
+                             [right_circle, left_circle, outer_rectangle, label_A, label_B, label_U, Aset_label, Bset_label])
 
         left_circle_items, right_circle_items, intersection_items = self.create_items(left_circle, right_circle)
         self.wait(1)
