@@ -232,7 +232,35 @@ class VennScene(Scene):
             right_circle.get_center()).shift(DOWN * 0.6 * (i - 1) + 0.8 * LEFT + DOWN * 0.3) for i in range(len(items))]
 
         return left_circle_items, right_circle_items, intersection_items
+    def move_items_into_circles(self, Aset_label: MathTex,
+                                Bset_label: MathTex,
+                                intersection_items: Sequence[MathTex],
+                                right_circle_items: Sequence[Mobject],
+                                left_circle_items: Sequence[Mobject]):
 
+
+        #moving the items to the left circle:
+        #note: the move_multiple_in_arc method is a custom method I wrote to automate moving mobjects from
+        #one point to another. The code for this is in the top of the class.
+
+        self.move_multiple_in_arc(
+            mobject_list = [Aset_label[4], Aset_label[-2], Bset_label[2], Bset_label[-2]],
+            end_mobject_list= [intersection_items[0], intersection_items[1], intersection_items[0], intersection_items[1]],
+            movement_animation_time = 2
+
+        )
+
+        self.move_multiple_in_arc(
+            mobject_list = [Aset_label[2], Aset_label[6], Aset_label[8]],
+            end_mobject_list= [left_circle_items[0], left_circle_items[1], left_circle_items[2]],
+            movement_animation_time = 2
+        )
+
+        self.move_multiple_in_arc(
+            mobject_list = [Bset_label[4], Bset_label[6]],
+            end_mobject_list= [right_circle_items[0], right_circle_items[1]],
+            movement_animation_time = 2
+        )
     def venn_animation(self):
         right_circle, left_circle, outer_rectangle, label_A, label_B, label_U, = self.create_shapes()
 
@@ -263,29 +291,10 @@ class VennScene(Scene):
         # self.play(FadeIn(*right_circle_items, *left_circle_items, *intersection_items))
 
         #moving items into the circles:
-
-
-        #moving the items to the left circle:
-        #note: the move_multiple_in_arc method is a custom method I wrote to automate moving mobjects from
-        #one point to another. The code for this is in the top of the class.
-
-        self.move_multiple_in_arc(
-            mobject_list = [Aset_label[4], Aset_label[-2], Bset_label[2], Bset_label[-2]],
-            end_mobject_list= [intersection_items[0], intersection_items[1], intersection_items[0], intersection_items[1]],
-            movement_animation_time = 2
-
-        )
-
-        self.move_multiple_in_arc(
-            mobject_list = [Aset_label[2], Aset_label[6], Aset_label[8]],
-            end_mobject_list= [left_circle_items[0], left_circle_items[1], left_circle_items[2]],
-            movement_animation_time = 2
-        )
-
-        self.move_multiple_in_arc(
-            mobject_list = [Bset_label[4], Bset_label[6]],
-            end_mobject_list= [right_circle_items[0], right_circle_items[1]],
-            movement_animation_time = 2
-        )
+        self.move_items_into_circles(Aset_label,
+                                Bset_label,
+                                intersection_items,
+                                right_circle_items,
+                                left_circle_items)
 
 
