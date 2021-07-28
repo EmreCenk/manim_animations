@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4eb02fe3-37b7-400c-bbe8-319f841c14a4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/venn_alternative.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venn_final/VennScene_v1.mp4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venn_final/venn_diagram.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/venn_alternative.py" beforeDir="false" afterPath="$PROJECT_DIR$/venn_alternative.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,7 +31,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/venn_final" />
     <property name="settings.editor.selected.configurable" value="configurable.group.editor" />
   </component>
   <component name="RecentsManager">

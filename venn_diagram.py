@@ -89,8 +89,9 @@ class VennScene(Scene):
         self.wait(1)
         self.play(FadeOut(video_name, run_time = 1))
 
-        u_set_text = MathTex("U = \{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\}")
-        a_set_text = MathTex("A = \{1, 2, 3, 5, 8\}").next_to(u_set_text, direction = DOWN)
+
+        a_set_text = MathTex("A = \{1, 2, 3, 5, 8\}")
+        u_set_text = MathTex("U = \{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\}").next_to(a_set_text, direction = UP)
         b_set_text = MathTex("B = \{2, 4, 6, 8\}").next_to(a_set_text, direction = DOWN)
 
         self.play(

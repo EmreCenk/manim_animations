@@ -89,8 +89,9 @@ class VennScene(Scene):
         self.wait(1)
         self.play(FadeOut(video_name, run_time = 1))
 
-        u_set_text = MathTex("U = \{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\}")
-        a_set_text = MathTex("A = \{1, 2, 3, 5, 8\}").next_to(u_set_text, direction = DOWN)
+
+        a_set_text = MathTex("A = \{1, 2, 3, 5, 8\}")
+        u_set_text = MathTex("U = \{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\}").next_to(a_set_text, direction = UP)
         b_set_text = MathTex("B = \{2, 4, 6, 8\}").next_to(a_set_text, direction = DOWN)
 
         self.play(
@@ -367,6 +368,7 @@ class VennScene(Scene):
         #
         # )
         self.play(*[Indicate(a_content[i], run_time = 1.65) for i in range(len(a_content))])
+        self.wait(0.6)
         self.play(*[FadeToColor(u_content1[i], GRAY, run_time = 1.5) for i in range(len(u_content1))])
 
 
@@ -379,6 +381,7 @@ class VennScene(Scene):
         # )
 
         self.play(*[Indicate(b_content[i], run_time = 1.65) for i in range(len(b_content))])
+        self.wait(0.6)
         self.play(*[FadeToColor(u_content2[i], GRAY, run_time = 1.5) for i in range(len(u_content2))])
 
 
@@ -386,7 +389,7 @@ class VennScene(Scene):
         self.move_multiple_in_arc(
             mobject_list = [Uset_label[self.find_mathtex(Uset_label, p)] for p in ["9", "7", "10"]],
             end_mobject_list = [*outside_items],
-            movement_animation_time = 1.75
+            movement_animation_time = 1.85
         )
 
         self.wait(1)
