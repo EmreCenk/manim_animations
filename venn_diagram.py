@@ -336,7 +336,7 @@ class VennScene(Scene):
                                                                                                     right_circle,
                                                                                                     circle_scale)
 
-        self.play(FadeIn(*right_circle_items, *left_circle_items, *intersection_items, *outside_items))
+        # self.play(FadeIn(*right_circle_items, *left_circle_items, *intersection_items, *outside_items))
 
 
         #moving items into the circles:
@@ -376,3 +376,10 @@ class VennScene(Scene):
             delete_end_mobjects=True
 
         )
+
+        self.move_multiple_in_arc(
+            mobject_list = [Uset_label[self.find_mathtex(Uset_label, p)] for p in ["9", "7", "10"]],
+            end_mobject_list = [*outside_items],
+        )
+
+        self.wait(1)
