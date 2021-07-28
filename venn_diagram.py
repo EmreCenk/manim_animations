@@ -10,7 +10,7 @@ from manim import *
 class VennScene(Scene):
 
     def construct(self):
-        self.camera.background_color = BLUE
+        # self.camera.background_color = BLUE
         # self.introduction()
         # self.wait(1)
         self.venn_animation()
@@ -214,7 +214,7 @@ class VennScene(Scene):
 
         self.play(FadeOut(*everything_to_fade_out, run_time = 2))
 
-        why_intersect_explanation = Tex("Since A and B have common elements, A and be will intersect")
+        why_intersect_explanation = Tex("Since A and B have common elements, A and B will intersect")
         self.play(FadeIn(why_intersect_explanation, run_time = 1.5))
         self.wait(3)
 
@@ -252,7 +252,7 @@ class VennScene(Scene):
         intersection_items = [Tex(items[i]).shift(
             right_circle.get_center()).shift(DOWN * 0.6 * (i - 1) + 0.8 * LEFT + DOWN * 0.3) for i in range(len(items))]
 
-        outside_items = [Tex("9").shift(left_circle.get_center()).shift(LEFT * 1.25 * circle_scale),
+        outside_items = [Tex("9").shift(left_circle.get_center()).shift(LEFT * 1.6 * circle_scale),
                          Tex("7").shift(right_circle.get_center()).shift(RIGHT * 1.45 * circle_scale + UP * 0.5),
                          Tex("10").shift(right_circle.get_center()).shift(RIGHT * 1.25 * circle_scale + DOWN )]
 
@@ -380,6 +380,7 @@ class VennScene(Scene):
         self.move_multiple_in_arc(
             mobject_list = [Uset_label[self.find_mathtex(Uset_label, p)] for p in ["9", "7", "10"]],
             end_mobject_list = [*outside_items],
+            movement_animation_time = 1.75
         )
 
         self.wait(1)
